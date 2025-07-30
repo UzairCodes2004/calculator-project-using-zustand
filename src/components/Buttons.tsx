@@ -29,9 +29,9 @@ const Buttons: React.FC = () => {
               className="bg-blue-200 hover:bg-blue-300 p-1 rounded text-xs font-medium"
             >
               {func === "√"
-                ? "√"
+                ? "sqrt("
                 : func === "x^y"
-                ? "x^y"
+                ? "^"
                 : func.replace("(", "")}
             </button>
           ))}
