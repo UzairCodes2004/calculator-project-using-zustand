@@ -28,10 +28,10 @@ const Buttons: React.FC = () => {
               onClick={() => onButtonClick(func)}
               className="bg-blue-200 hover:bg-blue-300 p-1 rounded text-xs font-medium"
             >
-              {func === "√"
-                ? "sqrt("
-                : func === "x^y"
-                ? "^"
+              {func === "sqrt("
+                ? "√"
+                : func === "^"
+                ? "x^y"
                 : func.replace("(", "")}
             </button>
           ))}
