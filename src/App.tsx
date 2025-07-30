@@ -5,7 +5,7 @@ import Variables from "./components/Variables";
 import History from "./components/History";
 import Buttons from "./components/Buttons";
 
-export default function App() {
+const App:React.FC=()=> {
   return (
     <div className="max-w-md mx-auto p-3 bg-gray-100 rounded-xl shadow-lg h-[90vh] max-h-[700px] flex flex-col">
       <h1 className="text-xl font-bold text-center mb-3 text-gray-800">
@@ -19,3 +19,4 @@ export default function App() {
     </div>
   );
 }
+export default App
