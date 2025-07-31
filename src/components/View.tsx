@@ -4,11 +4,17 @@ const View: React.FC = () => {
   const input = useCalculator((state) => state.input);
   const result = useCalculator((state) => state.result);
   const setInput = useCalculator((state) => state.setInput);
+  const evaluate =useCalculator((state)=>state.evaluate)
+    const addToHistory=useCalculator((state)=>state.addToHistory)
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
     setInput(e.target.value);
   };
   return (
-    <div>
+      <form
+       onSubmit={(e)=>{e.preventDefault()
+        evaluate();
+        addToHistory();
+       }} >
       <div className="mb-3">
         <input
           value={input}
@@ -21,7 +27,7 @@ const View: React.FC = () => {
           <span className="font-bold block mt-0.5 truncate">{result}</span>
         </div>
       </div>
-    </div>
+    </form>
   );
 };
 
