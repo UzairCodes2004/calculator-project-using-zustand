@@ -31,7 +31,7 @@ const History: React.FC = () => {
                       <button className="hover:underline"onClick={() => appendToInput(item.historyInput)}>
                         {item.historyInput}
                       </button>
-                      =  
+                            {" "} =  {" "}
                       <button className="hover:underline" onClick={() => appendToInput(item.historyResult)}>
                         {item.historyResult}
                       </button>
