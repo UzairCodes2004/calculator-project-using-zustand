@@ -9,7 +9,10 @@ const Variables: React.FC = () => {
   const addVariables = useCalculator((state) => state.addVariables);
 
   return (
-    <div>
+     <form onSubmit={(e)=>{
+      e.preventDefault()
+      addVariables();
+    }}>
       <div className="bg-white p-2 mt-2 rounded-md shadow">
         <div className="grid grid-cols-3 gap-1">
           <input
@@ -44,7 +47,7 @@ const Variables: React.FC = () => {
           ))}
         </div>
       </div>
-    </div>
+    </form>
   );
 };
 
