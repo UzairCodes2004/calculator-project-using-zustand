@@ -28,11 +28,17 @@ const History: React.FC = () => {
                     className="flex justify-between items-center"
                   >
                     <span>
-                      <button className="hover:underline"onClick={() => appendToInput(item.historyInput)}>
+                      <button
+                        className="hover:underline"
+                        onClick={() => appendToInput(item.historyInput)}
+                      >
                         {item.historyInput}
-                      </button>
-                            {" "} =  {" "}
-                      <button className="hover:underline" onClick={() => appendToInput(item.historyResult)}>
+                      </button>{" "}
+                      ={" "}
+                      <button
+                        className="hover:underline"
+                        onClick={() => appendToInput(item.historyResult)}
+                      >
                         {item.historyResult}
                       </button>
                     </span>
