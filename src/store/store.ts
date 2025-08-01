@@ -32,7 +32,7 @@ export interface CalculatorState {
   removeHistoryItem: (id: number) => void;
 }
 
-const parser = new Parser();
+const parser: Parser = new Parser();
 
 const useCalculator = create<CalculatorState>((set, get) => ({
   input: "",
@@ -44,59 +44,73 @@ const useCalculator = create<CalculatorState>((set, get) => ({
   variables: {},
   history: [],
 
-  setInput: (value: string) => set({ input: value }),
-  appendToInput: (value: string) =>
-    set((state) => ({ input: state.input + value })),
-  backspace: () => set((state) => ({ input: state.input.slice(0, -1) })),
-  clearInput: () => set({ input: "" }),
+  setInput: (value: string): void => set({ input: value }),
 
-  setVarName: (name: string) => set({ varName: name }),
-  setVarValue: (value: string) => set({ varValue: value }),
-addVariables: () => {
+  appendToInput: (value: string): void =>
+    set((state) => ({ input: state.input + value })),
+
+  backspace: (): void => set((state) => ({ input: state.input.slice(0, -1) })),
+
+  clearInput: (): void => set({ input: "" }),
+
+  setVarName: (name: string): void => set({ varName: name }),
+  setVarValue: (value: string): void => set({ varValue: value }),
+
+  addVariables: (): void => {
     const { varName, varValue, variables } = get();
 
     if (!varName || !varValue) {
-      return alert("Variable name and value are required.");
+      alert("Variable name and value are required.");
+      return;
     }
 
     if (["pi", "PI", "e", "E"].includes(varName)) {
-      return alert(`Cannot override built-in constant: ${varName}`);
+      alert(`Cannot override built-in constant: ${varName}`);
+      return;
     }
 
     if (!isNaN(Number(varName))) {
-      return alert("Cannot take an integer as variable name");
+      alert("Cannot take an integer as variable name");
+      return;
     }
 
     if (/^[a-zA-Z]+$/.test(varValue) && !(varValue in variables)) {
-      return alert(`Variable '${varValue}' is not defined.`);
+      alert(
+        `Variable '${varValue}' is not defined. Assign valid value or variable that already has a value.`
+      );
+      return;
     }
 
-    const evaluatedValue = parser.evaluate(varValue, variables);
-
-    set({
-      variables: {
-        ...variables,
-        [varName]: evaluatedValue,
-      },
-      varName: "",
-      varValue: "",
-    });
+    try {
+      const evaluatedValue: number = parser.evaluate(varValue, variables);
+      set({
+        variables: {
+          ...variables,
+          [varName]: evaluatedValue,
+        },
+        varName: "",
+        varValue: "",
+      });
+    } catch (error) {
+      console.error("Variable evaluation error:", error);
+      alert("Error evaluating variable value. Please check your input.");
+    }
   },
 
-  evaluate: () => {
+  evaluate: (): void => {
     const { input, variables } = get();
     try {
-      const value = parser.evaluate(input, variables);
+      const value: number = parser.evaluate(input, variables); // ✅ Type cast
       set({ result: value.toFixed(4) });
     } catch (error) {
-      console.error("Evaluation error:", error);
+      alert(` ${error}`);
       set({ result: "Invalid Expression" });
     }
   },
 
-  addToHistory: () => {
+  addToHistory: (): void => {
     const { input, result } = get();
-    const ID = Date.now();
+    const ID: number = Date.now();
     set((state) => ({
       history: [
         ...state.history,
@@ -105,7 +119,7 @@ addVariables: () => {
     }));
   },
 
-  removeHistoryItem: (id: number) =>
+  removeHistoryItem: (id: number): void =>
     set((state) => ({
       history: state.history.filter((item) => item.id !== id),
     })),
